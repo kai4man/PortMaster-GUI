@@ -2504,7 +2504,6 @@ class CreditsScene(BaseScene):
 
         self.load_regions("credits", ['credits_text'])
 
-        # Credits text with proper localization
         self.tags['credits_text'].text = _("credits_text")
         self.set_buttons({'B': _('Back')})
 

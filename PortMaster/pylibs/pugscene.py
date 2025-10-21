@@ -994,6 +994,10 @@ class OptionScene(BaseScene):
                 self.gui.push_scene('select-language', LanguageScene(self.gui))
                 return True
 
+            if selected_option == 'credits':
+                self.gui.push_scene('credits', CreditsScene(self.gui))
+                return True
+
             ## Secret options
             if selected_option == 'delete-config':
                 self.gui.events.running = False
@@ -2456,11 +2460,33 @@ class DialogSelectionList(BaseScene):
 
         return True
 
+class CreditsScene(BaseScene):
+    def __init__(self, gui):
+        super().__init__(gui)
+        self.scene_title = _("Credits")
+
+        self.load_regions("credits", ['credits_text'])
+
+        # Credits text with proper localization
+        self.tags['credits_text'].text = _("credits_text")
+        self.set_buttons({'B': _('Back')})
+
+    def do_update(self, events):
+        super().do_update(events)
+
+        if events.was_pressed('B'):
+            self.button_back()
+            self.gui.pop_scene()
+            return True
+
+        return False
+
 
 __all__ = (
     'StringFormatter',
     'BaseScene',
     'BlankScene',
+    'CreditsScene',
     'DialogSelectionList',
     'FiltersScene',
     'LanguageScene',

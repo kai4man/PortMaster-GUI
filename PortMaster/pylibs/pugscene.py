@@ -634,6 +634,8 @@ class OptionScene(BaseScene):
                 _("Metadata Refresh"),
                 description=_("Manually update port metadata with missing/updated information and artwork."))
 
+        self.tags['option_list'].add_option(None, _("System"))
+
         if self.gui.hm.device['name'] == 'TrimUI':
             self.tags['option_list'].add_option(
                 'trimui-port-mode-toggle',
@@ -649,7 +651,7 @@ class OptionScene(BaseScene):
                     _("Ports Location: ") +  (MUOS_MMC_TOGGLE.is_file() and _("SD 1") or _("SD 2")),
                     description=_("Location where ports should be installed to."))
             
-        elif Path("/roms/ports").is_dir():
+        if self.gui.hm.device['name'] == 'Ubuntu':
             if '/mnt/sdcard' in subprocess.getoutput(['df']):
                 SYSTEM_SD_TOGGLE = Path('/roms/ports/PortMaster/config/system_sd_toggle.txt')
 
@@ -657,8 +659,6 @@ class OptionScene(BaseScene):
                     'system-port-mode-toggle',
                     _("Ports Location: ") +  (SYSTEM_SD_TOGGLE.is_file() and _("SD 1") or _("SD 2")),
                     description=_("Location where ports should be installed to."))
-
-        self.tags['option_list'].add_option(None, _("System"))
 
         self.tags['option_list'].add_option(
             'runtime-manager',
@@ -691,6 +691,11 @@ class OptionScene(BaseScene):
             _("Release Channel: {channel}").format(
                 channel=self.gui.hm.cfg_data.get('release_channel', "stable")),
             description=_("Change release channel of PortMaster, either beta or stable."))
+        
+        self.tags['option_list'].add_option(
+            'credits',
+            _("Credits"),
+            description=_("View PortMaster credits and contributors."))
 
         if self.gui.hm.cfg_data.get('konami', False):
             if self.gui.hm.cfg_data.get('release_channel', 'stable') != 'alpha':
@@ -2500,12 +2505,15 @@ class DialogSelectionList(BaseScene):
 class CreditsScene(BaseScene):
     def __init__(self, gui):
         super().__init__(gui)
-        self.scene_title = _("Credits")
+        self.scene_title = gettext.dgettext('messages', "Credits")
 
-        self.load_regions("credits", ['credits_text'])
+        self.load_regions("message_box", ['message_text'])
 
-        self.tags['credits_text'].text = _("credits_text")
-        self.set_buttons({'B': _('Back')})
+        credits_text = gettext.dgettext('messages', "credits_text")
+        
+        self.tags['message_text'].text = credits_text
+
+        self.set_buttons({'B': gettext.dgettext('messages', "Back")})
 
     def do_update(self, events):
         super().do_update(events)

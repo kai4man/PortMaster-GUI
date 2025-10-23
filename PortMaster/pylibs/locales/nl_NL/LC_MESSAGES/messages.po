@@ -250,10 +250,6 @@ msgid "Installation failed, removing files..."
 msgstr "Installatie mislukt, bestanden verwijderen..."
 
 #: PortMaster/pylibs/harbourmaster/harbour.py:1602
-#, python-brace-format
-msgid "Port {download_name} installed failed."
-msgstr "Port {download_name} installatie mislukt."
-
 #: PortMaster/pylibs/harbourmaster/harbour.py:1620
 msgid "Port {download_name!r} and {runtime_name!r} installed successfully."
 msgstr "Port {download_name!r} en {runtime_name!r} succesvol geïnstalleerd."
@@ -1184,3 +1180,14 @@ msgstr "Berichten"
 msgid "Are you sure you want to cancel?"
 msgstr "Weet u zeker dat u wilt annuleren?"
 
+#: PortMaster/pylibs/pugscene.py:2510
+msgid "credits_text"
+msgstr "PortMaster is een project dat met grote toewijding is gemaakt. Wij uiten onze diepe waardering aan het hele PortMaster-team en alle bijdragers voor hun harde werk.\n\nAanpassing voor stockOS MOD\nSpeciale dank aan de ontwikkelaars wiens hulp deze aanpassing mogelijk heeft gemaakt:\n\ncbepx\nkai4man\nlyghters\nsimotek"
+
+#: PortMaster/pylibs/pugscene.py:718
+msgid "Credits"
+msgstr "Credits"
+
+#: PortMaster/pylibs/pugscene.py:719
+msgid "View PortMaster credits and contributors."
+msgstr "Bekijk PortMaster credits en bijdragers."

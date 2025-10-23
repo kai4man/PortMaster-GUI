@@ -86,6 +86,18 @@ elif Path("/opt/muos").is_dir():
         HM_DEFAULT_PORTS_DIR   = Path("/mnt/sdcard/ports")
         HM_DEFAULT_SCRIPTS_DIR = Path("/mnt/sdcard/ROMS/Ports")
 
+elif Path("/roms/ports/PortMaster/").is_dir():
+    ## Stock OS
+    HM_DEFAULT_TOOLS_DIR   = Path("/roms/ports")
+    HM_DEFAULT_PORTS_DIR   = Path("/mnt/mmc/roms/ports")
+    HM_DEFAULT_SCRIPTS_DIR = Path("/mnt/mmc/roms/ports")
+
+    SYSTEM_SD_TOGGLE = Path('/roms/ports/PortMaster/config/system_sd_toggle.txt')
+
+    if not SYSTEM_SD_TOGGLE.is_file() and '/mnt/sdcard' in subprocess.getoutput(['df']):
+        HM_DEFAULT_PORTS_DIR   = Path("/mnt/sdcard/roms/ports")
+        HM_DEFAULT_SCRIPTS_DIR = Path("/mnt/sdcard/roms/ports")
+
 elif Path("/opt/system/Tools").is_dir():
     if Path("/roms2/tools").is_dir():
         HM_DEFAULT_TOOLS_DIR   = Path("/roms2/tools")

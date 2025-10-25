@@ -6,3 +6,8 @@ This is not an official release from the PortMaster team, but rather modificatio
 
 Based on the original PortMaster work:
 https://portmaster.games
+
+
+## 🎮 Compatible Games
+
+[**📋 Check the Working Ports List**](https://docs.google.com/spreadsheets/d/1UlxRCSIfNkZIiCMAgo8eFqKhsIbrLA_1d3lFdVyS4q8/edit?gid=0) - regularly updated spreadsheet with tested games.

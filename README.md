@@ -1,4 +1,4 @@
-# PortMaster - GUI
+# PortMaster for Anbernic H700 StockOS MOD
 
 PortMaster is a convenient script designed to facilitate the downloading and installation of ports for handheld devices. As the number of available ports has increased, the original interface has become progressively cumbersome. For the past few months we have been developing a new GUI.
 

@@ -199,9 +199,7 @@ if [ ! -z "$RELOCATE_PM" ]; then
 
     mkdir -p "/mnt/mmc/Roms/APPS/Imgs"
 
-    if [ -f "PortMaster/PortMaster.png" ]; then
-      cp -f "PortMaster/PortMaster.png" "/mnt/mmc/Roms/APPS/Imgs/PortMaster.png"
-    fi
+    $ESUDO mv -vf PortMaster/PortMaster.png "/mnt/mmc/Roms/Imgs/PortMaster.png" | tee -a $CUR_TTY
   fi
 fi
 

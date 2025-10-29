@@ -236,6 +236,11 @@ fi
 echo "Finished installing PortMaster" | tee -a $CUR_TTY
 sleep 2
 
+if [ -f "$0" ]; then
+  rm -f "$0"
+  echo "Removed installation script" | tee -a $CUR_TTY
+fi
+
 if [ ! -f "$HOME/no_es_restart" ]; then
   if [ "$OS_NAME" = "muOS" ]; then
     # YEET

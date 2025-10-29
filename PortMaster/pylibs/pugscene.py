@@ -636,6 +636,21 @@ class OptionScene(BaseScene):
 
         self.tags['option_list'].add_option(None, _("System"))
 
+        if self.gui.hm.device['name'] == 'TrimUI':
+            self.tags['option_list'].add_option(
+                'trimui-port-mode-toggle',
+                _("Ports Location: ") +  (self.gui.hm.cfg_data.get('trimui-port-mode', 'roms') == 'roms' and _("Roms section") or _("Ports tab")),
+                description=_("Location where ports should be installed to."))
+
+        if self.gui.hm.device['name'] == 'muOS':
+            if '/mnt/sdcard' in subprocess.getoutput(['df']):
+                MUOS_MMC_TOGGLE = Path('/mnt/mmc/MUOS/PortMaster/config/muos_mmc_master_race.txt')
+
+                self.tags['option_list'].add_option(
+                    'muos-port-mode-toggle',
+                    _("Ports Location: ") +  (MUOS_MMC_TOGGLE.is_file() and _("SD 1") or _("SD 2")),
+                    description=_("Location where ports should be installed to."))
+
         if self.gui.hm.device['name'] == 'Ubuntu':
             if '/mnt/sdcard' in subprocess.getoutput(['df']):
                 SYSTEM_SD_TOGGLE = Path('/roms/ports/PortMaster/config/system_sd_toggle.txt')

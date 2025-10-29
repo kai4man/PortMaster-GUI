@@ -195,9 +195,16 @@ if [ ! -z "$RELOCATE_PM" ]; then
   if [ -d "/userdata/roms/ports" ]; then
     $ESUDO mv -vf PortMaster/PortMaster.sh /$directory/ports/PortMaster.sh | tee -a $CUR_TTY
   else
-    $ESUDO mv -vf PortMaster/PortMaster.sh PortMaster.sh | tee -a $CUR_TTY
+    $ESUDO mv -vf PortMaster/PortMaster.sh "/mnt/mmc/Roms/APPS/PortMaster.sh" | tee -a $CUR_TTY
+
+    mkdir -p "/mnt/mmc/Roms/APPS/Imgs"
+
+    if [ -f "PortMaster/PortMaster.png" ]; then
+    cp -f "PortMaster/PortMaster.png" "/mnt/mmc/Roms/APPS/Imgs/PortMaster.png"
   fi
 fi
+
+
 
 if [ "$OS_NAME" = "retrodeck" ]; then
     $ESUDO mv -vf PortMaster/PortMaster.sh "/${roms_folder}/portmaster/PortMaster.sh" | tee -a $CUR_TTY

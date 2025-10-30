@@ -199,7 +199,7 @@ if [ ! -z "$RELOCATE_PM" ]; then
 
     mkdir -p "/mnt/mmc/Roms/APPS/Imgs"
 
-    $ESUDO mv -vf PortMaster/PortMaster.png "/mnt/mmc/Roms/Imgs/PortMaster.png" | tee -a $CUR_TTY
+    $ESUDO mv -vf PortMaster/PortMaster.png "/mnt/mmc/Roms/APPS/Imgs/PortMaster.png" | tee -a $CUR_TTY
   fi
 fi
 
@@ -233,12 +233,8 @@ else
 fi
 
 echo "Finished installing PortMaster" | tee -a $CUR_TTY
-sleep 2
 
-if [ -f "$0" ]; then
-  rm -f "$0"
-  echo "Removed installation script" | tee -a $CUR_TTY
-fi
+sleep 2
 
 if [ ! -f "$HOME/no_es_restart" ]; then
   if [ "$OS_NAME" = "muOS" ]; then

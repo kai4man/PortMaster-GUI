@@ -201,7 +201,7 @@ else
   fi
 fi
 
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib32
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib32:/usr/lib/pm
 export raloc="/mnt/vendor/deep/retro"
 export raconf="--config /.config/retroarch/retroarch.cfg"
 

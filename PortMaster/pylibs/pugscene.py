@@ -508,6 +508,10 @@ class MainMenuScene(BaseScene):
             _("Options"),
             description=_("PortMaster Options"))
         self.tags['option_list'].add_option(
+            'credits',
+            _("Credits"),
+            description=_("View PortMaster credits and contributors."))    
+        self.tags['option_list'].add_option(
             'exit',
             _("Exit"),
             description=_("Quit PortMaster"))
@@ -567,6 +571,10 @@ class MainMenuScene(BaseScene):
 
             elif selected_option == 'options':
                 self.gui.push_scene('option', OptionScene(self.gui))
+                return True
+
+            elif selected_option == 'credits':
+                self.gui.push_scene('credits', CreditsScene(self.gui))
                 return True
 
             elif selected_option == 'exit':
@@ -680,22 +688,18 @@ class OptionScene(BaseScene):
             _("Update PortMaster"),
             description=_("Force check for a new PortMaster version."))
 
-        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI'):
+        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI', 'Ubuntu'):
             self.tags['option_list'].add_option(
                 'restore-portmaster',
                 _("Restore PortMaster"),
                 description=_("This will restore PortMaster to the latest stable version of PortMaster."))
+
 
         self.tags['option_list'].add_option(
             'release-channel',
             _("Release Channel: {channel}").format(
                 channel=self.gui.hm.cfg_data.get('release_channel', "stable")),
             description=_("Change release channel of PortMaster, either beta or stable."))
-        
-        self.tags['option_list'].add_option(
-            'credits',
-            _("Credits"),
-            description=_("View PortMaster credits and contributors."))
 
         if self.gui.hm.cfg_data.get('konami', False):
             if self.gui.hm.cfg_data.get('release_channel', 'stable') != 'alpha':

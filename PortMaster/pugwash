@@ -516,6 +516,7 @@ class PortMasterGUI(pySDL2gui.GUI, harbourmaster.Callback):
     TICK_INTERVAL = 1000 // 5
     TEXT_DATA_FREQ = 5000
     MIN_THEME_VERSION = 1
+    IS_GUI = True
 
     def __init__(self, *, first_scene=None, force_theme=None):
         # Initialize SDL
@@ -1280,6 +1281,20 @@ class PortMasterGUI(pySDL2gui.GUI, harbourmaster.Callback):
         finally:
             self.message_box_disable = old_message_state
 
+    @contextlib.contextmanager
+    def enable_messagebox(self):
+        """
+        Enables displaying the messagebox.
+        """
+        old_message_state = self.message_box_disable
+        try:
+            self.message_box_disable = False
+
+            yield
+
+        finally:
+            self.message_box_disable = old_message_state
+
     ## Scene code.
     def scene_list(self):
         return [
@@ -1640,7 +1655,8 @@ class PortMasterGUI(pySDL2gui.GUI, harbourmaster.Callback):
             fifo_config['done-file'].write_text("FAIL")
             return
 
-        self.message(args[0])
+        # Not sure how I never noticed that newlines were displaying as "\n" ...
+        self.message(args[0].replace('\\n', '\n'))
         fifo_config['done-file'].write_text("DONE")
 
     def fifo_progress(self, fifo_config, args):
@@ -1721,7 +1737,7 @@ class PortMasterGUI(pySDL2gui.GUI, harbourmaster.Callback):
             return
 
         fifo_config['done-file'].write_text("WAIT")
-        result = self.message_box(args[0], **mb_config)
+        result = self.message_box(args[0].replace('\\n', '\n'), **mb_config)
         fifo_config['done-file'].write_text(result and "TRUE" or "FALSE")
 
     def fifo_check_runtime(self, fifo_config, args):

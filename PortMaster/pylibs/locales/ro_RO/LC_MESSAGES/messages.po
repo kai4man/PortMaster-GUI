@@ -1206,3 +1206,14 @@ msgstr "Mesaje"
 msgid "Are you sure you want to cancel?"
 msgstr "Ești sigur că vrei să anulezi?"
 
+#: pylibs/pugscene.py:2510
+msgid "credits_text"
+msgstr "PortMaster este un proiect creat cu mare dedicație. Exprimăm profunda noastră recunoștință întregii echipe PortMaster și tuturor contribuitorilor pentru munca lor depusă.\n\nAdaptare pentru stockOS MOD\nMulțumiri speciale dezvoltatorilor a căror ajutor a făcut posibilă această adaptare:\n\ncbepx\nkai4man\nlyghters\nsimotek"
+
+#: pylibs/pugscene.py:718
+msgid "Credits"
+msgstr "Mulțumiri"
+
+#: pylibs/pugscene.py:719
+msgid "View PortMaster credits and contributors."
+msgstr "Vedeți mulțumirile și contribuitorii PortMaster."

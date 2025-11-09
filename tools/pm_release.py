@@ -66,15 +66,15 @@ def dump_info(main_file, info_data):
 def main(argv):
     if len(argv) == 1:
         release_type = "alpha"
-        version_number = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d-%H%M")
+        version_number = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d-%H%M") + "-MOD"
 
     elif len(argv) == 2:
         release_type = argv[1]
-        version_number = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d-%H%M")
+        version_number = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%d-%H%M") + "-MOD"
 
     else:
         release_type = argv[1]
-        version_number = argv[2]
+        version_number = argv[2] + "-MOD"
 
     pugwash_data = load_info("PortMaster/pugwash")
 

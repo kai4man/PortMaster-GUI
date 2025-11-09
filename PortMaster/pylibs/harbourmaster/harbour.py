@@ -2024,6 +2024,7 @@ class HarbourMaster():
         else:
             self.callback.message_box(_("Port {download_name!r} installed successfully.").format(download_name=port_nice_name))
 
+        self.install_image(port_info)
         return 0
 
     def check_runtime(self, runtime, port_name=None, in_install=False):
@@ -2414,6 +2415,7 @@ class HarbourMaster():
 
         finally:
             self.callback.message_box(_("Successfully uninstalled {port_name}").format(port_name=port_info_name))
+            self.uninstall_image(port_info)
             return 0
 
     def portmd(self, port_info):
@@ -2444,6 +2446,59 @@ class HarbourMaster():
         output.append(f'<r>genres</r>="<m>{",".join(port_info["attr"]["genres"])}</m>"')
 
         return ' '.join(output)
+
+    def install_image(self, port_info_list):
+        logger.info(f"install_image-->port_info_list: {port_info_list}")
+        port_dir = f"{self.ports_dir}"
+        port_image_dir = self.ports_dir / "Imgs"
+        port_script_filename = None
+        for item in port_info_list["items"]:
+            if self._ports_dir_exists(item):
+                if item.casefold().endswith("/"):
+                    part = item.rsplit("/")
+                    port_dir = Path(port_dir) / part[0]
+                if item.casefold().endswith(".sh"):
+                    port_script_filename = os.path.splitext(item)
+        port_image_list = port_info_list.get("attr", {}).get("image")
+        if isinstance(port_image_list, dict):
+            for key, port_image in port_image_list.items():
+                if port_image.lower().endswith(".png") or port_image.lower().endswith(".jpg"):
+                    port_image_filename = os.path.splitext(port_image)
+                    break
+                else:
+                    return 1
+        elif isinstance(port_image_list, str):
+            port_image = port_image_list
+            port_image_filename = os.path.splitext(port_image)
+        if not port_image_dir.exists():
+            os.makedirs(port_image_dir, exist_ok=True)
+        source_image_path = Path(port_dir) / port_image
+        target_image_path = Path(port_image_dir) / f"{port_script_filename[0]}{port_image_filename[1]}"
+        logger.info(f"source_image_path: {source_image_path}, target_image_path: {target_image_path}")
+        shutil.copy2(source_image_path, target_image_path)
+
+
+    def uninstall_image(self, port_info):
+        logger.info(f"uninstall_image-->port_info: {port_info}")
+        port_image_dir = self.ports_dir / "Imgs"
+        for item in port_info["items"]:
+            if item.casefold().endswith(".sh"):
+                port_script_filename = os.path.splitext(item)
+        port_image_list = port_info.get("attr", {}).get("image")
+        if isinstance(port_image_list, dict):
+            for key, port_image in port_image_list.items():
+                if port_image.lower().endswith(".png") or port_image.lower().endswith(".jpg"):
+                    port_image_filename = os.path.splitext(port_image)
+                    break
+                else:
+                    return 1
+        elif isinstance(port_image_list, str):
+            port_image = port_image_list
+            port_image_filename = os.path.splitext(port_image)
+        target_image_path = Path(port_image_dir) / f"{port_script_filename[0]}{port_image_filename[1]}"
+        logger.info(f"target_image_path: {target_image_path}")
+        if target_image_path.exists():
+            target_image_path.unlink()
 
 __all__ = (
     'HarbourMaster',

@@ -3,6 +3,10 @@
 # SPDX-License-Identifier: MIT
 #
 
+if [ -f "/usr/lib/libpulsecommon-14.2.so" ]; then
+    sudo mv /usr/lib/libpulsecommon-14.2.so /usr/lib/libpulsecommon-14.2.so.disabled
+fi
+
 # Source love2d runtime
 source $controlfolder/runtimes/"love_11.5"/love.txt
 
@@ -15,5 +19,9 @@ fi
 # Run the patcher with exported args
 $GPTOKEYB "$LOVE_GPTK" &
 $LOVE_RUN "$controlfolder/utils/patcher" -f "$PATCHER_FILE" -g "$PATCHER_GAME" -t "$PATCHER_TIME" "$CHANGELOG" -q "$PATCHER_QUESTIONS"
+
+if [ -f "/usr/lib/libpulsecommon-14.2.so.disabled" ]; then
+    sudo mv /usr/lib/libpulsecommon-14.2.so.disabled /usr/lib/libpulsecommon-14.2.so
+fi
 
 pm_gptokeyb_finish

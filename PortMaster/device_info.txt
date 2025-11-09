@@ -1,4 +1,5 @@
 #!/bin/bash
+# make by G.R.H
 #
 # SPDX-License-Identifier: MIT
 #
@@ -175,6 +176,21 @@ elif [ -f "/sys/firmware/devicetree/base/model" ]; then
         DEVICE_NAME=$(cat "/sys/firmware/devicetree/base/model" | cut -d' ' -f 3)
     elif [[ "$CFW_NAME" == "AmberELEC" ]] && [[ -f "/storage/.config/device" ]]; then
         DEVICE_NAME=$(cat /storage/.config/device)
+    elif [[ "$CFW_NAME" == "Ubuntu" ]] && [[ -f "/mnt/vendor/oem/board.ini" ]]; then
+        declare -A device_name_mapping=(
+            ["RG28xx"]="RG28XX-H"
+            ["RG34xx"]="RG34XX-H"
+            ["RG34xxSP"]="RG34XX-SP"
+            ["RG35xx+_P"]="RG35XX-PLUS"
+            ["RG35xxH"]="RG35XX-H"
+            ["RG35xxPRO"]="RG35XX-PRO"
+            ["RG35xxSP"]="RG35XX-SP"
+            ["RG40xxH"]="RG40XX-H"
+            ["RG40xxV"]="RG40XX-V"
+            ["RGcubexx"]="RGCUBEXX-H"
+        )
+        DEVICE_NAME=$(cat /mnt/vendor/oem/board.ini)
+        DEVICE_NAME=${device_name_mapping[$DEVICE_NAME]}
     fi
 else
     DEVICE_NAME="Unknown"

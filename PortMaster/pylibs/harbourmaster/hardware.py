@@ -109,6 +109,7 @@ HW_INFO = {
     "rg-arc-s": {"resolution": ( 640,  480), "analogsticks": 0, "cpu": "rk3566", "capabilities": ["power"], "ram": 1024},
 
     # Anbernic RG35XX
+    "rgcubexx":    {"resolution": (720, 720), "analogsticks": 2, "cpu": "h700", "capabilities": ["power"], "ram": 1024},
     "rg40xx-h":    {"resolution": (640, 480), "analogsticks": 2, "cpu": "h700", "capabilities": ["power"], "ram": 1024},
     "rg40xx-v":    {"resolution": (640, 480), "analogsticks": 1, "cpu": "h700", "capabilities": ["power"], "ram": 1024},
     "rg35xx-h":    {"resolution": (640, 480), "analogsticks": 2, "cpu": "h700", "capabilities": ["power"], "ram": 1024},
@@ -339,6 +340,7 @@ def nice_device_to_device(raw_device):
         ('anbernic rg35xx plus*', 'rg35xx-plus'),
         ('anbernic rg40xx h*',    'rg40xx-h'),
         ('anbernic rg40xx v*',    'rg40xx-v'),
+        ('anbernic rgcube xx*',   'rgcubexx'),
 
         ('anbernic rg40xx*',      'rg40xx-h'),
         ('anbernic rg35xx*',      'rg35xx-h'),

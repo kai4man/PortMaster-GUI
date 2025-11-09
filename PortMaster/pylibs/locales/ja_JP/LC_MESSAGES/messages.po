@@ -1197,3 +1197,14 @@ msgstr "メッセージ"
 msgid "Are you sure you want to cancel?"
 msgstr "取り消しますか？"
 
+#: PortMaster/pylibs/pugscene.py:2510
+msgid "credits_text"
+msgstr "PortMasterは、熱意をもって作成されたプロジェクトです。PortMasterチーム全体とすべての貢献者による努力に対して、心から感謝申し上げます。\n\nstockOS MODへの適応\nこの適応を可能にした開発者たちに特別な感謝を捧げます：\n\ncbepx\nkai4man\nlyghters\nsimotek"
+
+#: PortMaster/pylibs/pugscene.py:718
+msgid "Credits"
+msgstr "クレジット"
+
+#: PortMaster/pylibs/pugscene.py:719
+msgid "View PortMaster credits and contributors."
+msgstr "PortMasterのクレジットと貢献者を表示します。"

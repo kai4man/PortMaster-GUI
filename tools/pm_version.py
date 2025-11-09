@@ -9,7 +9,7 @@ import json
 import sys
 
 
-DOWNLOAD_URL = "https://github.com/PortsMaster/PortMaster-GUI/releases/download"
+DOWNLOAD_URL = "https://github.com/kai4man/PortMaster-for-StockOS-MOD/releases/download"
 
 def hash_file(file_name):
     md5_obj = hashlib.md5()

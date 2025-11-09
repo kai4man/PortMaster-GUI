@@ -508,6 +508,10 @@ class MainMenuScene(BaseScene):
             _("Options"),
             description=_("PortMaster Options"))
         self.tags['option_list'].add_option(
+            'credits',
+            _("Credits"),
+            description=_("View PortMaster credits and contributors."))    
+        self.tags['option_list'].add_option(
             'exit',
             _("Exit"),
             description=_("Quit PortMaster"))
@@ -567,6 +571,10 @@ class MainMenuScene(BaseScene):
 
             elif selected_option == 'options':
                 self.gui.push_scene('option', OptionScene(self.gui))
+                return True
+
+            elif selected_option == 'credits':
+                self.gui.push_scene('credits', CreditsScene(self.gui))
                 return True
 
             elif selected_option == 'exit':
@@ -634,6 +642,8 @@ class OptionScene(BaseScene):
                 _("Metadata Refresh"),
                 description=_("Manually update port metadata with missing/updated information and artwork."))
 
+        self.tags['option_list'].add_option(None, _("System"))
+
         if self.gui.hm.device['name'] == 'TrimUI':
             self.tags['option_list'].add_option(
                 'trimui-port-mode-toggle',
@@ -649,7 +659,14 @@ class OptionScene(BaseScene):
                     _("Ports Location: ") +  (MUOS_MMC_TOGGLE.is_file() and _("SD 1") or _("SD 2")),
                     description=_("Location where ports should be installed to."))
 
-        self.tags['option_list'].add_option(None, _("System"))
+        if self.gui.hm.device['name'] == 'Ubuntu':
+            if '/mnt/sdcard' in subprocess.getoutput(['df']):
+                SYSTEM_SD_TOGGLE = Path('/roms/ports/PortMaster/config/system_sd_toggle.txt')
+
+                self.tags['option_list'].add_option(
+                    'system-port-mode-toggle',
+                    _("Ports Location: ") +  (SYSTEM_SD_TOGGLE.is_file() and _("SD 1") or _("SD 2")),
+                    description=_("Location where ports should be installed to."))
 
         self.tags['option_list'].add_option(
             'runtime-manager',
@@ -671,11 +688,12 @@ class OptionScene(BaseScene):
             _("Update PortMaster"),
             description=_("Force check for a new PortMaster version."))
 
-        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI'):
+        if self.gui.hm.device['name'] not in ('muOS', 'TrimUI', 'Ubuntu'):
             self.tags['option_list'].add_option(
                 'restore-portmaster',
                 _("Restore PortMaster"),
                 description=_("This will restore PortMaster to the latest stable version of PortMaster."))
+
 
         self.tags['option_list'].add_option(
             'release-channel',
@@ -985,6 +1003,34 @@ class OptionScene(BaseScene):
                                 reboot_file.touch(0o644)
 
                         return True
+            
+            if selected_option == 'system-port-mode-toggle':
+                if '/mnt/sdcard' in subprocess.getoutput(['df']):
+                    MUOS_MMC_TOGGLE = Path('/roms/ports/PortMaster/config/system_sd_toggle.txt')
+
+                    language_map = {
+                        True:  _('SDCARD 1'),
+                        False: _('SDCARD 2'),
+                    }
+
+                    if self.gui.message_box(
+                            _("Are you sure you want to manage and install ports on {to_loc}?\n\nAlready installed ports will not be moved.\nPortMaster will restart for this to take effect.").format(
+                                to_loc=language_map[(not MUOS_MMC_TOGGLE.is_file())]),
+                            want_cancel=True):
+
+                        self.gui.events.running = False
+
+                        if MUOS_MMC_TOGGLE.is_file():
+                            MUOS_MMC_TOGGLE.unlink()
+                        else:
+                            MUOS_MMC_TOGGLE.touch(0o644)
+
+                        if not harbourmaster.HM_TESTING:
+                            reboot_file = (harbourmaster.HM_TOOLS_DIR / "PortMaster" / ".pugwash-reboot")
+                            if not reboot_file.is_file():
+                                reboot_file.touch(0o644)
+
+                        return True
 
             if selected_option == 'runtime-manager':
                 self.gui.push_scene('runtime-manager', RuntimesScene(self.gui))
@@ -1008,6 +1054,10 @@ class OptionScene(BaseScene):
 
             if selected_option == 'select-language':
                 self.gui.push_scene('select-language', LanguageScene(self.gui))
+                return True
+
+            if selected_option == 'credits':
+                self.gui.push_scene('credits', CreditsScene(self.gui))
                 return True
 
             ## Secret options
@@ -2485,11 +2535,35 @@ class DialogSelectionList(BaseScene):
 
         return True
 
+class CreditsScene(BaseScene):
+    def __init__(self, gui):
+        super().__init__(gui)
+        self.scene_title = gettext.dgettext('messages', "Credits")
+
+        self.load_regions("message_box", ['message_text'])
+
+        credits_text = gettext.dgettext('messages', "credits_text")
+        
+        self.tags['message_text'].text = credits_text
+
+        self.set_buttons({'B': gettext.dgettext('messages', "Back")})
+
+    def do_update(self, events):
+        super().do_update(events)
+
+        if events.was_pressed('B'):
+            self.button_back()
+            self.gui.pop_scene()
+            return True
+
+        return False
+
 
 __all__ = (
     'StringFormatter',
     'BaseScene',
     'BlankScene',
+    'CreditsScene',
     'DialogSelectionList',
     'FiltersScene',
     'LanguageScene',

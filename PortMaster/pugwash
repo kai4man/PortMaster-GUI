@@ -9,7 +9,7 @@ PORTMASTER_RELEASE_CHANNEL = 'developer'
 ## -- END PORTMASTER INFO --
 
 PORTMASTER_MIN_VERSION = '2025-02-17-0000'
-PORTMASTER_RELEASE_URL = 'https://github.com/PortsMaster/PortMaster-GUI/releases/latest/download/'
+PORTMASTER_RELEASE_URL = 'https://github.com/kai4man/PortMaster-for-StockOS-MOD/releases/latest/download/'
 PORTMASTER_RELEASE_VALUES = ('stable', 'beta', 'alpha')
 
 PORTMASTER_UPDATE_FREQUENCY = (60 * 60 * 1)

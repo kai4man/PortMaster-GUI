@@ -22,7 +22,7 @@ GODOT_OPTS="--resolution ${DISPLAY_WIDTH}x${DISPLAY_HEIGHT} -f"
 declare -A PORTS_RA_64BIT=(
   ["Dinothawr"]="dinothawr"
   ["Cave Story"]="cavestory" 
-  ["Mr Boom"]="mrboom"
+  ["Mr. Boom"]="mrboom"
   ["Quake"]="quake"
   ["Rick Dangerous"]="xrick"
 )

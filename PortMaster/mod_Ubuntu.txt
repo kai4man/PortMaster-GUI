@@ -9,6 +9,9 @@
 #
 # usage `[ -f "${controlfolder}/mod_${CFW_NAME}.txt" ] && source "${controlfolder}/mod_${CFW_NAME}.txt"`
 
+# Set TAR_OPTIONS to resolve uid/gid conflicts
+export TAR_OPTIONS="--no-same-owner --no-same-permissions"
+
 # Set the virtual screen
 CUR_TTY="/dev/null"
 
@@ -59,6 +62,11 @@ if [ -n "$FOLDER_NAME" ]; then
       fi
     fi
   fi
+fi
+
+if [[ "$PORT_NAME" == "Minetest" ]]; then
+  export CFW_NAME="muOS"
+    break
 fi
 
 pm_platform_helper() {

@@ -28,6 +28,7 @@ declare -A PORTS_RA_64BIT=(
   ["Mr. Boom"]="mrboom"
   ["Quake"]="quake"
   ["Rick Dangerous"]="xrick"
+  ["Cannonball"]="cannonball"
 )
 
 PORTS_ARMHF=("2048")
